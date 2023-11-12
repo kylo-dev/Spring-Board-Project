@@ -1,0 +1,26 @@
+# database
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url : jdbc:mysql://localhost:3306/blog_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: gyeom
+    password: 3677
+  thymeleaf:
+    cache: false
+
+  # spring data jpa
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+#        default_batch_fetch_size: 100
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace
+
+cos:
+  key: cos1234
