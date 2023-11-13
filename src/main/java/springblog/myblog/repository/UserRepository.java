@@ -1,7 +1,7 @@
 package springblog.myblog.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import springblog.myblog.entity.User;
+import springblog.myblog.domain.User;
 
 import java.util.Optional;
 

@@ -1,9 +1,8 @@
-package springblog.myblog.entity;
+package springblog.myblog.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import springblog.myblog.domain.common.BaseEntity;
+import springblog.myblog.domain.enums.UserRole;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,8 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

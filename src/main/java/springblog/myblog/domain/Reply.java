@@ -1,14 +1,15 @@
-package springblog.myblog.entity;
+package springblog.myblog.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import springblog.myblog.domain.common.BaseEntity;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-public class Reply extends BaseEntity{
+public class Reply extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
