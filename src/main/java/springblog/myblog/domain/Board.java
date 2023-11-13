@@ -1,9 +1,6 @@
 package springblog.myblog.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import springblog.myblog.domain.common.BaseEntity;
 
 import javax.persistence.*;
@@ -14,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
 public class Board extends BaseEntity {
 
@@ -28,7 +26,7 @@ public class Board extends BaseEntity {
     private String content;
 
     @Column
-    private int count;
+    private Integer count;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -42,6 +40,11 @@ public class Board extends BaseEntity {
     public void setUser(User user){
         this.user = user;
         user.getBoards().add(this);
+    }
+
+    public void addReplies(Reply reply) {
+        replies.add(reply);
+        reply.setBoard(this);
     }
 
 }
