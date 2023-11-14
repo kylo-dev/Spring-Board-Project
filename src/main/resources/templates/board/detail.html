@@ -16,8 +16,8 @@
 
     <br/> <br/>
     <div>
-        글 번호 : <span id="id"><i th:text="${board.id}"></i></span>
-        작성자 : <spanf><i th:text="${board.user.username}"></i></spanf>
+        글 번호 : <span id="Id"><i th:text="${board.id}"></i></span>
+        작성자 : <span><i th:text="${board.user.username}"></i></span>
     </div>
     <br />
     <div>
@@ -47,12 +47,13 @@
     <div class="card mb-2">
         <div class="card-header">댓글 리스트</div>
         <ul id="reply-box" class="list-group">
-            <li th:each="reply: ${board.replies}" id="${reply.id}" class="list-group-item d-flex justify-content-between">
+            <li th:each="reply: ${board.replies}" id="replyId" th:value="${reply.id}" class="list-group-item d-flex justify-content-between">
                 <div th:text="${reply.content}"></div>
                 <div class="d-flex">
                     <div class="font-italic">작성자 : [[${reply.user.username}]] &nbsp;</div>
-                    <button th:if="${board.user.id == principal.user.id}"
-                            th:onclick="index.replyDelete([[${board.id}]], [[${reply.id}]])" class="badge">삭제</button>
+                    <button th:if="${board.user.id == principal.user.id}" id="btn-reply-delete" class="badge">삭제</button>
+<!--                    <button th:if="${board.user.id == principal.user.id}"-->
+<!--                            th:onclick="index.replyDelete([[${board.id}]], [[${reply.id}]])" class="badge">삭제</button>-->
                 </div>
             </li>
         </ul>
@@ -62,5 +63,6 @@
 
 <div th:replace="fragments/footer :: footer"/>
 <script src="/js/board.js"></script>
+<script src="/js/reply.js"></script>
 </body>
 </html>
