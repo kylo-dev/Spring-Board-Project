@@ -37,7 +37,7 @@ public class Reply extends BaseEntity {
         user.getReplies().add(this);
     }
 
-    public Reply createReply(User user, Board board, String content){
+    public static Reply createReply(User user, Board board, String content){
         Reply reply = new Reply();
         reply.setUser(user);
         reply.setBoard(board);
