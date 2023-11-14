@@ -33,10 +33,8 @@ public class UserService {
     public void save(User user){
         validationDuplicateUser(user);
         String encPassword = bCryptPasswordEncoder.encode(user.getPassword());
-        User.builder()
-                .password(encPassword)
-                .role(UserRole.USER)
-                .build();
+        user.setPassword(encPassword);
+        user.setRole(UserRole.USER);
         userRepository.save(user);
     }
 

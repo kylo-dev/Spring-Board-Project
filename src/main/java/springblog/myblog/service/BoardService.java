@@ -39,9 +39,9 @@ public class BoardService {
         return boardPage;
     }
 
-    public List<Board> findAllBoardWithUser(){
-        return boardRepository.
-    }
+//    public List<Board> findAllBoardWithUser(){
+//        return boardRepository.
+//    }
 
     // 게시글 조회
     public Board findById(Long id){
@@ -49,8 +49,10 @@ public class BoardService {
                 new IllegalArgumentException("글 찾기 실패 : 게시글 ID를 찾을 수 없습니다."));
     }
 
+    // 게시글과 회원 정보 모두 조회
     public Board findBoardWithUser(Long id){
-        return boardRepository.
+        return boardRepository.findBoardWithUser(id).orElseThrow(()->
+                new IllegalArgumentException("글 찾기 실패 : 게시글 ID를 찾을 수 없습니다."));
     }
 
     // 게시글 수정

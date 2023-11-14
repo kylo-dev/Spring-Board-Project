@@ -20,12 +20,14 @@ public class UserController {
     @Value("${cos.key}")
     private String cosKey;
 
+    // 회원 가입 폼으로 이동
     @GetMapping("/auth/joinForm")
     public String joinForm() {
         return "user/joinForm";
     }
 
-    @GetMapping("/auth//loginForm")
+    // 로그인 폼으로 이동
+    @GetMapping("/auth/loginForm")
     public String loginForm() {
         return "user/loginForm";
     }
