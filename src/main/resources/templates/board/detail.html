@@ -52,8 +52,6 @@
                 <div class="d-flex">
                     <div class="font-italic">작성자 : [[${reply.user.username}]] &nbsp;</div>
                     <button th:if="${board.user.id == principal.user.id}" id="btn-reply-delete" class="badge">삭제</button>
-<!--                    <button th:if="${board.user.id == principal.user.id}"-->
-<!--                            th:onclick="index.replyDelete([[${board.id}]], [[${reply.id}]])" class="badge">삭제</button>-->
                 </div>
             </li>
         </ul>

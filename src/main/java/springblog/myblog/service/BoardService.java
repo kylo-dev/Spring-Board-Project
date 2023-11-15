@@ -35,13 +35,8 @@ public class BoardService {
 
     // 페이징 글 조회
     public Page<Board> findAll(Pageable pageable){
-        Page<Board> boardPage = boardRepository.findAll(pageable);
-        return boardPage;
+        return boardRepository.findAll(pageable);
     }
-
-//    public List<Board> findAllBoardWithUser(){
-//        return boardRepository.
-//    }
 
     // 게시글 조회
     public Board findById(Long id){

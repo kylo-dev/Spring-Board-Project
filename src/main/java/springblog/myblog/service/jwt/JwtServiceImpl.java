@@ -1,8 +1,6 @@
 package springblog.myblog.service.jwt;
 
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +38,19 @@ public class JwtServiceImpl implements JwtService{
                 .signWith(signKey, SignatureAlgorithm.HS256);
 
         return builder.compact();
+    }
+
+    @Override
+    public Claims getClaims(String token) {
+        if(token != null && !"".equals(token)){
+            try{
+                byte[] secretByteKey = DatatypeConverter.parseBase64Binary(secretKey);
+                Key signKey = new SecretKeySpec(secretByteKey, SignatureAlgorithm.HS256.getJcaName());
+                return Jwts.parserBuilder().setSigningKey(signKey).build().parseClaimsJws(token).getBody();
+            }catch (ExpiredJwtException e) {
+            }catch (JwtException e){
+            }
+        }
+        return null;
     }
 }
