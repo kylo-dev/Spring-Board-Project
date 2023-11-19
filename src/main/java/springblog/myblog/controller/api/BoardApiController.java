@@ -9,11 +9,15 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import springblog.myblog.domain.Board;
+import springblog.myblog.domain.Reply;
 import springblog.myblog.dto.ResponseDto;
 import springblog.myblog.dto.board.BoardDto;
 import springblog.myblog.dto.board.BoardPageDto;
+import springblog.myblog.dto.board.BoardReplyDto;
 import springblog.myblog.dto.board.SaveBoardDto;
 import springblog.myblog.service.BoardService;
+
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,15 +44,15 @@ public class BoardApiController {
     }
 
     // 게시판 삭제
-    @DeleteMapping("/api/board/{id}")
-    public ResponseDto<Integer> delete(@PathVariable Long id){
-        try{
-            boardService.deleteById(id);
-        }catch (EmptyResultDataAccessException e){
-            return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), 0);
-        }
-        return new ResponseDto<>(HttpStatus.OK.value(), 1);
-    }
+//    @DeleteMapping("/api/board/{id}")
+//    public ResponseDto<Integer> delete(@PathVariable Long id){
+//        try{
+//            boardService.deleteById(id);
+//        }catch (EmptyResultDataAccessException e){
+//            return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), 0);
+//        }
+//        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+//    }
 
     //== VUe API ==//
 
@@ -64,6 +68,19 @@ public class BoardApiController {
     public BoardDto findBoard(@PathVariable Long id){
         Board findBoard = boardService.findById(id);
         return new BoardDto(findBoard.getTitle(), findBoard.getContent(),findBoard.getCount(),findBoard.getUser().getId());
+    }
+
+    // 게시판 정보 + 댓글 정보
+    @GetMapping("/api/board/reply/{id}")
+    public BoardReplyDto findBoardWithReply(@PathVariable Long id){
+        Board board = boardService.findById(id);
+        return BoardReplyDto.builder()
+                .board_id(board.getId())
+                .user_id(board.getUser().getId())
+                .replies(board.getReplies().stream()
+                        .map(BoardReplyDto::convertDto)
+                        .collect(Collectors.toList()))
+                .build();
     }
 
     // 게시판 생성
@@ -82,6 +99,17 @@ public class BoardApiController {
     @PatchMapping("/api/board/update/{id}")
     public ResponseDto<Integer> update(@RequestBody BoardDto boardDto, @PathVariable Long id){
         boardService.update(id, boardDto.getTitle(), boardDto.getContent());
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+    }
+
+    // 게시글 삭제
+    @DeleteMapping("/api/board/delete/{id}")
+    public ResponseDto<Integer> delete(@PathVariable Long id){
+        try{
+            boardService.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), 0);
+        }
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 }

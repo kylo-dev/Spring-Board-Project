@@ -1,7 +1,6 @@
 package springblog.myblog.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import springblog.myblog.domain.common.BaseEntity;
 
 import javax.persistence.*;
@@ -9,6 +8,9 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Reply extends BaseEntity {
 
     @Id
