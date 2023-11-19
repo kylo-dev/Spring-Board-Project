@@ -11,6 +11,6 @@ public class BoardDto {
 
     private String title;
     private String content;
-    private int count;
+    private Integer count;
     private Long user_id;
 }

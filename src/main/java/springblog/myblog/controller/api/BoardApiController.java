@@ -7,9 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-//import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-//import springblog.myblog.config.auth.PrincipalDetail;
 import springblog.myblog.domain.Board;
 import springblog.myblog.dto.ResponseDto;
 import springblog.myblog.dto.board.BoardDto;
@@ -66,5 +64,24 @@ public class BoardApiController {
     public BoardDto findBoard(@PathVariable Long id){
         Board findBoard = boardService.findById(id);
         return new BoardDto(findBoard.getTitle(), findBoard.getContent(),findBoard.getCount(),findBoard.getUser().getId());
+    }
+
+    // 게시판 생성
+    @PostMapping("/api/board/write")
+    public ResponseDto<Integer> write(@RequestBody BoardDto boardDto){
+        Board board = Board.builder()
+                .title(boardDto.getTitle())
+                .content(boardDto.getContent())
+                .build();
+
+        boardService.write(board, boardDto.getUser_id());
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+    }
+
+    // 게시판 수정
+    @PatchMapping("/api/board/update/{id}")
+    public ResponseDto<Integer> update(@RequestBody BoardDto boardDto, @PathVariable Long id){
+        boardService.update(id, boardDto.getTitle(), boardDto.getContent());
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 }

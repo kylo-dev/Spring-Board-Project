@@ -29,14 +29,13 @@ public class UserService {
 //    private final AuthenticationManager authenticationManager;
 
     // 회원 저장
-//    @Transactional
-//    public void save(User user){
-//        validationDuplicateUser(user);
-//        String encPassword = bCryptPasswordEncoder.encode(user.getPassword());
-//        user.setPassword(encPassword);
-//        user.setRole(UserRole.USER);
-//        userRepository.save(user);
-//    }
+    @Transactional
+    public void save(User user){
+        validationDuplicateUser(user);
+        user.setPassword(user.getPassword());
+        user.setRole(UserRole.USER);
+        userRepository.save(user);
+    }
 
     // 중복 회원 검사
     private void validationDuplicateUser(User user) {

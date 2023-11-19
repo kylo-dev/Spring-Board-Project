@@ -23,8 +23,8 @@ public class BoardService {
 
     // 글쓰기 - 회원 정보 매핑
     @Transactional
-    public Long write(Board board, User user){
-        User findUser = userRepository.findById(user.getId()).orElseThrow(() ->
+    public Long write(Board board, Long userId){
+        User findUser = userRepository.findById(userId).orElseThrow(() ->
                 new IllegalArgumentException("글 작성 실패 : 작성자 ID를 찾을 수 없습니다."));
 
         board.setUser(findUser);

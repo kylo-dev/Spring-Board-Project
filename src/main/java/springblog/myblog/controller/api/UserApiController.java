@@ -52,7 +52,7 @@ public class UserApiController {
     }
 
     // Vue 로그인 API
-    @PostMapping("/api/user/login/test")
+    @PostMapping("/api/user/login")
     public ResponseEntity login(@RequestBody Map<String, String> params, HttpServletResponse res){
         User user = userService.findByUsernameAndPassword(params.get("username"), params.get("password"));
 
@@ -70,6 +70,20 @@ public class UserApiController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
+    // 회원가입 처리 API
+    @PostMapping("/api/user/join")
+    public ResponseDto<Integer> join(@RequestBody JoinUserDto userDto){
+        User user = User.builder()
+                .username(userDto.getUsername())
+                .password(userDto.getPassword())
+                .email(userDto.getEmail())
+                .build();
+
+        userService.save(user);
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+    }
+
+
     // JWT 체크
     @GetMapping("/api/user/check")
     public ResponseEntity check(@CookieValue(value = "token", required = false) String token){
@@ -82,5 +96,19 @@ public class UserApiController {
 
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
+
+    // 로그아웃 API
+    @PostMapping("/api/user/logout")
+    public ResponseDto<Integer> logout(@CookieValue(value = "token", required = false) String token,
+                                       HttpServletResponse res){
+        // 쿠키 삭제를 위해 새로운 쿠키를 생성하고 만료 일자를 이전 날짜로 설정
+        Cookie cookie = new Cookie("token", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        res.addCookie(cookie);
+
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+    }
+
 
 }
