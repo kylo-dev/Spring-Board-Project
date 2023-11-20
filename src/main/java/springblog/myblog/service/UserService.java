@@ -1,11 +1,6 @@
 package springblog.myblog.service;
 
 import lombok.RequiredArgsConstructor;
-//import org.springframework.security.authentication.AuthenticationManager;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springblog.myblog.domain.User;
@@ -25,8 +20,6 @@ public class UserService {
     EntityManager em;
 
     private final UserRepository userRepository;
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-//    private final AuthenticationManager authenticationManager;
 
     // 회원 저장
     @Transactional
@@ -50,22 +43,6 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findById(id);
         return optionalUser.orElse(null);
     }
-
-//    @Transactional
-//    public void update(User reqUser){
-//        User user = userRepository.findById(reqUser.getId()).orElseThrow(() ->
-//                new IllegalArgumentException("회원 정보를 수정할 수 없습니다."));
-//
-//        // oauth 필드에 값이 없어야 수정 가능 (= 카카오 로그인은 수정할 수 없음)
-//        if (user.getOauth() == null || user.getOauth().equals("")){
-//            user.setPassword(bCryptPasswordEncoder.encode(reqUser.getPassword()));
-//            user.setEmail(reqUser.getEmail());
-//        }
-//
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(reqUser.getUsername(), reqUser.getPassword()));
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//    }
 
     // 회원 pk로 삭제
     @Transactional

@@ -11,8 +11,6 @@ import springblog.myblog.domain.User;
 import springblog.myblog.repository.BoardRepository;
 import springblog.myblog.repository.UserRepository;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

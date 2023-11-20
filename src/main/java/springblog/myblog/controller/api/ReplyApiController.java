@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import springblog.myblog.dto.ResponseDto;
 import springblog.myblog.dto.reply.SaveReplyDto;
-import springblog.myblog.service.BoardService;
 import springblog.myblog.service.ReplyService;
 
 @RestController
