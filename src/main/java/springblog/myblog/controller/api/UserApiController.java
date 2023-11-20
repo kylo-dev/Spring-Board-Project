@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 import springblog.myblog.domain.User;
 import springblog.myblog.dto.ResponseDto;
 import springblog.myblog.dto.user.JoinUserDto;
+import springblog.myblog.dto.user.UserDto;
 import springblog.myblog.repository.UserRepository;
 import springblog.myblog.service.UserService;
 import springblog.myblog.service.jwt.JwtService;
@@ -83,6 +84,15 @@ public class UserApiController {
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 
+    @GetMapping("/api/user/{id}")
+    public UserDto detail(@PathVariable Long id){
+        User user = userService.findById(id);
+        return UserDto.builder()
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .role(user.getRole().toString())
+                .build();
+    }
 
     // JWT 체크
     @GetMapping("/api/user/check")

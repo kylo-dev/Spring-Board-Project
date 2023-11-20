@@ -71,12 +71,15 @@ public class BoardApiController {
     }
 
     // 게시판 정보 + 댓글 정보
-    @GetMapping("/api/board/reply/{id}")
+    @GetMapping("/api/board/{id}/reply")
     public BoardReplyDto findBoardWithReply(@PathVariable Long id){
         Board board = boardService.findById(id);
         return BoardReplyDto.builder()
                 .board_id(board.getId())
+                .title(board.getTitle())
+                .content(board.getContent())
                 .user_id(board.getUser().getId())
+                .username(board.getUser().getUsername())
                 .replies(board.getReplies().stream()
                         .map(BoardReplyDto::convertDto)
                         .collect(Collectors.toList()))

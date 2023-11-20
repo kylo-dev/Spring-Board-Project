@@ -13,4 +13,5 @@ public class ReplyDto {
     private Long replyId;
     private String content;
     private Long userId;
+    private String username;
 }

@@ -16,14 +16,18 @@ import java.util.List;
 @Builder
 public class BoardReplyDto {
     private Long board_id;
+    private String title;
+    private String content;
     private Long user_id;
+    private String username;
     private List<ReplyDto> replies;
 
     public static ReplyDto convertDto(Reply reply){
         return ReplyDto.builder()
                 .replyId(reply.getId())
-                .userId(reply.getUser().getId())
                 .content(reply.getContent())
+                .userId(reply.getUser().getId())
+                .username(reply.getUser().getUsername())
                 .build();
     }
 }
