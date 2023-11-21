@@ -52,7 +52,7 @@ public class BoardApiController {
     // 게시판 정보 + 댓글 정보
     @GetMapping("/api/board/{id}/reply")
     public BoardReplyDto findBoardWithReply(@PathVariable Long id){
-        Board board = boardService.findById(id);
+        Board board = boardService.findBoardWithUser(id);
         return BoardReplyDto.builder()
                 .board_id(board.getId())
                 .title(board.getTitle())
