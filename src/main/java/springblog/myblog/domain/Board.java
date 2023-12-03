@@ -34,6 +34,7 @@ public class Board extends BaseEntity {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     @OrderBy("id desc")
+    @Builder.Default
     private List<Reply> replies = new ArrayList<>();
 
     //== 연관관계 메소드 ==//

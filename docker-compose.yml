@@ -1,0 +1,44 @@
+version: "3"
+services:
+  # MySQL 컨테이너 설정
+  blog-mysql:
+    image: mysql
+    networks:
+      - blog-net
+    restart: always  # 컨테이너 재시작 설정
+    environment:
+      MYSQL_ROOT_PASSWORD: 3677
+      MYSQL_DATABASE: blog_db
+      MYSQL_USER: gyeom  # WordPress 사용자 생성
+      MYSQL_PASSWORD: 3677  # WordPress 사용자 비밀번호 설정
+    ports:
+      - 33306:3306
+  # backend
+  blog-backend:
+    depends_on:
+      - blog-mysql
+    image: kimhyungyeom/backend-blog  # WordPress 이미지 사용
+    networks:
+      - blog-net
+    ports:
+      - 8080:8080
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://blog-mysql:3306/blog_db?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: gyeom
+      SPRING_DATASOURCE_PASSWORD: 3677
+  # frontend
+  blog-front:
+    depends_on:
+      - blog-backend
+    image: kimhyungyeom/frontend-blog
+    networks:
+      - blog-net
+    ports:
+      - 3000:80
+    restart: always
+    environment:
+      BACKEND_API_URL: http://blog-backend:8080/api
+# 컨테이너 간 통신을 위한 네트워크 설정
+networks:
+  blog-net:

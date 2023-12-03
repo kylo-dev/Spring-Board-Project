@@ -36,8 +36,10 @@ public class User extends BaseEntity {
     private String oauth;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<Board> boards = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<Reply> replies = new ArrayList<>();
 }
