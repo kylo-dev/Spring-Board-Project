@@ -16,9 +16,6 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class UserService {
 
-    @PersistenceContext
-    EntityManager em;
-
     private final UserRepository userRepository;
 
     // 회원 저장
