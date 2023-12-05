@@ -17,9 +17,10 @@ Springboot 프로젝트에서 템플릿 문법인 Thymeleaf를 이용해 한 서
 Front Server, Backend Server, Database Server를 연동시켜 봤습니다.
 
 
-* [도메인 분석 및 설계](#도메인-분석-및-설계)
+* [시스템 구성도 및 도메인 설계](#시스템-구성도-및-도메인-설계)
 * [Spring Code 분석](#springboot-code-분석)
 * [Restful API 개발](#restful-api-개발)
+* [Docker 배포](#docker-배포)
 * [Stacks](#stacks)
 * [화면구성](#화면구성)
 * [배운점](#배운점)
@@ -30,6 +31,7 @@ Front Server, Backend Server, Database Server를 연동시켜 봤습니다.
 
 | 시스템 구성도 | 데이터베이스 |
 |---------|--------|
+|<img src="https://github.com/kylo-dev/Spring-Blog-Project/assets/103489352/423816d7-8156-4f94-8a13-0fc40aa35982" width="450px" height="300px">|<img src="https://github.com/kylo-dev/Spring-Blog-Project/assets/103489352/11955ba3-b749-4a9e-b2d1-05b121bfdb6c" width="450px" height="300px">|
 
 
 ---
@@ -57,7 +59,7 @@ ManyToOne 관계인 User를 `board.getUser()`하게 되면 Query가 한 번 더 
 
 3. Reply는 여러 개의 값을 가지고 있으므로 List<Reply> 로 컬렉션 형태로 DTO에 저장하게 됩니다. 하지만 List<Reply>로 데이터를 저장하게 되면
    데이터의 순환 참조가 발생하는 문제가 발생합니다.
-   * 이를 해결하기 위해 List<Reply> -> List<ReplyDto> 로 변경하여 Reply도 엔티티가 아닌 DTO 형태로 변환해 주어여 합니다.
+   * 이를 해결하기 위해 `List<Reply>` -> `List<ReplyDto>` 로 변경하여 Reply도 엔티티가 아닌 DTO 형태로 변환해 주어여 합니다.
 
 
 ```JAVA
@@ -83,7 +85,7 @@ public BoardReplyDto findBoardWithReply(@PathVariable Long id){
 
 [API 명세서 with Postman](https://documenter.getpostman.com/view/28292619/2s9YeLWoPn)
 
-Restful API 개발을 하면서 꼭 알아야 할 사항들을 배웠습니다.
+Restful API 개발을 하면서 배운점
 1. Request or Response 값은 엔티티로 받는 것이 아닌 별도의 DTO로 받아 처리한다.
     * 엔티티에 프레젠테이션 계층 분리
     * DTO를 통해 다양한 API 요청을 해결하면서 엔티티에 영향을 주지 않는다.
@@ -103,10 +105,10 @@ Restful API 개발을 하면서 꼭 알아야 할 사항들을 배웠습니다.
 
 **배운점**
 
-1. Docker를 처음 이용해 보면서 프로젝트 파일을 Docker image, Docker hub 배포 하는 방법에 대해 알 수 있었습니다.
+1. Docker를 처음 이용해 보면서 프로젝트 파일을 **Docker image, Docker hub** 배포 하는 방법에 대해 알 수 있었습니다.
 
 
-2. docker-compose 파일 작성하여 프론트, 백엔드, 데이터베이스 서버를 설정해 보면서 3개의 서버를 연동하는
+2. **docker-compose 파일 작성**하여 프론트, 백엔드, 데이터베이스 서버를 설정해 보면서 3개의 서버를 연동하는
    방법에 대해 알 수 있었습니다.
 
 **트러블 슈팅**
@@ -123,6 +125,9 @@ Restful API 개발을 하면서 꼭 알아야 할 사항들을 배웠습니다.
 
    `axios.get('/api/**')` -> `axios.get('http://' + window.location.hostname + ':8080' + '/api/**')` 으로 변경하여
    컨터이너에 정확하게 어느 URL과 데이터 통신이 이루어지는지 작성하여 오류를 해결할 수 있었습니다.
+
+
+<img src="https://github.com/kylo-dev/Spring-Blog-Project/assets/103489352/5e60e28a-c361-4b76-a084-2a75154eb88e" width="600px">
 
 ---
 
@@ -152,9 +157,10 @@ Restful API 개발을 하면서 꼭 알아야 할 사항들을 배웠습니다.
 
 ### 화면구성
 
-|메인 페이지|회원등록 페이지|상품등록 페이지|
+|메인 페이지|게시글 상세 보기|회원가입|
 |---|---|---|
-|<img src="">
+|<img src="https://github.com/kylo-dev/Spring-Blog-Project/assets/103489352/252d9190-0059-4248-9bff-d75b35d21933" width="450px" height="300px">|<img src="https://github.com/kylo-dev/Spring-Blog-Project/assets/103489352/8490780f-4c21-4055-9639-40c27cace5fe" width="450px" height="300px">|<img src="https://github.com/kylo-dev/Spring-Blog-Project/assets/103489352/94bcb350-1b23-4d6d-8463-94c8322904af" width="450px" height="300px">|
+
 ---
 
 ### 배운점
